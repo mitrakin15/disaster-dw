@@ -1,0 +1,13 @@
+month_number,month_name,season,cyclone,storm,hail,flood,bushfire,earthquake
+1,January,Summer,12.0,5,1.0,6.0,8.0,
+2,February,Summer,9.0,5,1.0,7.0,5.0,
+3,March,Autumn,10.0,5,,5.0,3.0,
+4,April,Autumn,4.0,1,2.0,2.0,,1.0
+5,May,Autumn,,3,1.0,2.0,,1.0
+6,June,Winter,,4,,2.0,,1.0
+7,July,Winter,,1,,1.0,,1.0
+8,August,Winter,,1,,,,1.0
+9,September,Spring,,1,,1.0,2.0,1.0
+10,October,Spring,1.0,3,3.0,1.0,2.0,
+11,November,Spring,1.0,7,3.0,2.0,4.0,
+12,December,Summer,5.0,6,2.0,3.0,2.0,
