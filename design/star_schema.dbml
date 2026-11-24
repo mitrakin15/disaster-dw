@@ -1,0 +1,89 @@
+// Natural Disaster Insurance DW: star schema (two fact tables, conformed dimensions)
+// Paste into dbdiagram.io, then Export > PNG. Save this file as design/star_schema.dbml
+
+Table dim_date {
+  date_key int [pk, note: 'yyyymmdd; -1 = Unknown']
+  full_date date
+  day_of_month int
+  month_number int
+  month_name varchar
+  calendar_quarter int
+  calendar_year int
+  au_financial_year int [note: 'July to June, year the period ends']
+  season varchar
+}
+
+Table dim_location {
+  location_key bigint [pk, increment, note: '-1 = Unknown']
+  state_code varchar [not null]
+  state_name varchar
+  state_type varchar [note: 'State or Territory']
+  country varchar
+}
+
+Table dim_hazard {
+  hazard_key bigint [pk, increment, note: '-1 = Unknown']
+  hazard_group varchar [not null, note: 'Cyclone, Storm, Hail, Flood, Bushfire, Earthquake']
+  hazard_family varchar [note: 'Meteorological, Hydrological, Fire, Geophysical']
+}
+
+Table dim_event {
+  event_key bigint [pk, increment, note: '-1 = Unknown']
+  source_row_num int
+  ica_cat_code varchar
+  event_name varchar
+  declaration_status varchar
+  state_original varchar
+  state_source varchar
+  multi_state_flag boolean
+  de_matched_flag boolean
+  de_source_id varchar
+}
+
+Table fact_event_loss {
+  event_key bigint [not null]
+  start_date_key int
+  end_date_key int
+  location_key bigint
+  hazard_key bigint
+  original_loss_aud decimal(18,2)
+  normalised_loss_2022_aud decimal(18,2)
+  total_claims int
+  domestic_building_claims int
+  domestic_content_claims int
+  domestic_motor_claims int
+  domestic_other_claims int
+  commercial_property_claims int
+  commercial_motor_claims int
+  commercial_bi_claims int
+  commercial_other_claims int
+  commercial_crop_claims int
+  duration_days int
+  deaths int
+  injuries int
+  evacuated int
+  homes_destroyed int
+  run_id varchar
+  Note: 'Transaction fact. Grain: one row per in-scope ICA catastrophe event (natural hazard, starting 2011 or later), attributed to the primary state.'
+}
+
+Table fact_state_year {
+  location_key bigint [not null]
+  date_key int [not null, note: '30 June of the year']
+  population bigint [note: 'non-additive: never SUM across years']
+  population_year_used int
+  population_imputed boolean
+  median_income_aud decimal(12,2)
+  income_year_used int
+  income_imputed boolean
+  run_id varchar
+  Note: 'Periodic snapshot. Grain: one row per state per year.'
+}
+
+Ref: fact_event_loss.event_key > dim_event.event_key
+Ref: fact_event_loss.start_date_key > dim_date.date_key
+Ref: fact_event_loss.end_date_key > dim_date.date_key
+Ref: fact_event_loss.location_key > dim_location.location_key
+Ref: fact_event_loss.hazard_key > dim_hazard.hazard_key
+Ref: fact_state_year.location_key > dim_location.location_key
+Ref: fact_state_year.date_key > dim_date.date_key
