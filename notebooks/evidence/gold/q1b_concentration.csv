@@ -1,0 +1,11 @@
+loss_rank,event_name,start_date,hazard_group,state_code,loss_m,cumulative_pct
+1,SE Queensland and NSW Floods,2022-02-21,Flood,NSW,6375.6,11.3
+2,QLD & NSW Severe Storms and Hail,2025-11-20,Storm,QLD,2492.3,15.7
+3,Brisbane Flooding,2011-01-11,Flood,QLD,2450.4,20.1
+4,Brisbane Hailstorm,2014-11-27,Hail,QLD,2430.5,24.4
+5,"2019/20 Bushfires (NSW,QLD,SA,VIC)",2019-11-08,Bushfire,QLD,2405.4,28.7
+6,Cyclone Debbie,2017-03-28,Cyclone,QLD,2348.3,32.9
+7,Cylone Yasi,2011-01-26,Cyclone,QLD,2100.7,36.6
+8,January Hailstorms,2020-01-18,Hail,QLD,2025.3,40.2
+9,NSW Hailstorm,2018-12-20,Hail,NSW,1743.9,43.3
+10,East Coast Low,2015-04-22,Storm,NSW,1662.5,46.2
